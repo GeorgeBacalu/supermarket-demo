@@ -27,5 +27,17 @@ namespace Supermarket.Core.Services
         public ReceiptDto UpdateById(ReceiptDto receiptDto, Guid id) => _receiptRepository.UpdateById(receiptDto.ToEntity(_userRepository, _soldProductRepository), id).ToDto();
 
         public ReceiptDto DeleteById(Guid id) => _receiptRepository.DeleteById(id).ToDto();
+
+        public IList<SoldProductDto> AddProductToReceipt(Guid receiptId, Guid productId, int quantity)
+        {
+            var receipt = _receiptRepository.GetById(receiptId);
+            var soldProduct = _soldProductRepository.GetById(productId);
+            soldProduct.Quantity = quantity;
+            soldProduct.Subtotal = soldProduct.Product.Price * quantity;
+            receipt.SoldProducts.Add(soldProduct);
+            receipt.Total += soldProduct.Subtotal;
+            _receiptRepository.UpdateById(receipt, receiptId);
+            return receipt.SoldProducts.ToDtos();
+        }
     }
 }

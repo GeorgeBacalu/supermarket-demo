@@ -17,5 +17,7 @@ namespace Supermarket.Core.Services.Interfaces
         ReceiptDto UpdateById(ReceiptDto receiptDto, Guid id);
 
         ReceiptDto DeleteById(Guid id);
+
+        IList<SoldProductDto> AddProductToReceipt(Guid receiptId, Guid productId, int quantity);
     }
 }

@@ -14,8 +14,23 @@
                 <DatePicker SelectedDate="{Binding ReceiptDto.IssuedAt}" Width="400" Margin="0,0,0,10" />
                 <TextBlock Text="Issuer" Margin="0,0,0,5" />
                 <ComboBox ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" Width="400" Margin="0,0,0,10" DisplayMemberPath="Name" />
-                <TextBlock Text="Total" Margin="0,0,0,5" />
-                <TextBox Text="{Binding ReceiptDto.Total}" Width="400" Margin="0,0,0,10" />
+                <TextBlock Text="Products" Margin="0,20,0,10" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <ComboBox ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" Width="250" Margin="0,0,10,0" DisplayMemberPath="Name" />
+                    <TextBox Text="{Binding SelectedProductQuantity}" Width="50" Margin="0,0,10,0" />
+                    <Button Content="Add" Command="{Binding AddProductCommand}" Width="60" />
+                </StackPanel>
+                <ListBox ItemsSource="{Binding ReceiptDto.SoldProducts}" Margin="0,10,0,10">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <TextBlock Text="{Binding Product.Name}" Width="250" />
+                                <TextBlock Text="{Binding Quantity}" Width="50" />
+                                <Button Content="Remove" Command="{Binding DataContext.RemoveProductCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" Width="60" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
                     <Button Content="Save" Command="{Binding SaveCommand}" Width="100" Margin="10" />
                     <Button Content="Cancel" Command="{Binding CancelCommand}" Width="100" Margin="10" />

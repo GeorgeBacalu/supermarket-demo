@@ -113,7 +113,7 @@ namespace Supermarket.Core.ViewModels
 
         private void AccessProducts() => new ProductsView(new ProductsVM(_productService, _categoryService, _manufacturerService)).Show();
 
-        private void AccessReceipts() => new ReceiptsView(new ReceiptsVM(_receiptService, _userService)).Show();
+        private void AccessReceipts() => new ReceiptsView(new ReceiptsVM(_receiptService, _productService, _userService)).Show();
 
         private void AccessStocks() => new StocksView(new StocksVM(_stockService, _productService)).Show();
 

@@ -11,7 +11,9 @@ namespace Supermarket.Core.ViewModels.Receipts
     public class ReceiptsVM : BaseVM
     {
         private readonly IReceiptService _receiptService;
+        private readonly IProductService _productService;
         private readonly IUserService _userService;
+
         public ObservableCollection<ReceiptDto> ReceiptDtos { get; set; }
         public string SearchKey { get; set; }
         public event Action OnClose;
@@ -23,10 +25,11 @@ namespace Supermarket.Core.ViewModels.Receipts
         public ICommand SearchCommand { get; }
         public ICommand CloseCommand { get; }
 
-        public ReceiptsVM(IReceiptService receiptService, IUserService userService)
+        public ReceiptsVM(IReceiptService receiptService, IProductService productService, IUserService userService)
         {
             _receiptService = receiptService;
             _userService = userService;
+            _productService = productService;
             ReceiptDtos = new ObservableCollection<ReceiptDto>(_receiptService.GetAll());
             AddReceiptCommand = new RelayCommand(o => AddReceipt());
             UpdateReceiptCommand = new RelayCommand(o => UpdateReceipt(o as ReceiptDto));
@@ -38,7 +41,7 @@ namespace Supermarket.Core.ViewModels.Receipts
 
         private void AddReceipt()
         {
-            var saveReceiptView = new SaveReceiptView(new SaveReceiptVM(_receiptService, _userService));
+            var saveReceiptView = new SaveReceiptView(new SaveReceiptVM(_receiptService, _productService, _userService));
             saveReceiptView.ShowDialog();
             RefreshReceipts();
         }

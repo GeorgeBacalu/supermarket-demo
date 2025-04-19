@@ -11,7 +11,7 @@
             <TextBlock Text="Stock Details" FontSize="20" Margin="0,0,0,20" TextAlignment="Center" />
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Product: " Margin="0,0,0,5" />
-                <ComboBox ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" Width="400" Margin="0,0,0,10" DisplayMemberPath="Name" />
+                <TextBlock Text="{Binding StockDto.Product.Name}" Margin="0,0,0,10" />
                 <TextBlock Text="Quantity: " Margin="0,0,0,5" />
                 <TextBlock Text="{Binding StockDto.Quantity}" Margin="0,0,0,10" />
                 <TextBlock Text="Measure Unit: " Margin="0,0,0,5" />
